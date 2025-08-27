@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare("INSERT INTO notes (title, description) VALUES (?, ?)");
     $stmt->bind_param("ss", $title, $desc);
 
+
     if ($stmt->execute()) {
         header("Location: index.php");
         exit;
