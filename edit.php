@@ -2,8 +2,8 @@
 
 <?php
 $id = $_GET['id'];
-$result = $conn->query("SELECT * FROM notes WHERE id=$id");
-$note = $result->fetch_assoc();
+$result = mysqli_query($conn, "SELECT * FROM `notes` WHERE `id`='$id'");
+$note = mysqli_fetch_assoc($result);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = $_POST['title'];
