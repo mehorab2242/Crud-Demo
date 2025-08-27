@@ -20,7 +20,7 @@
 
     <?php
     $result = $conn->query("SELECT * FROM notes ORDER BY id DESC");
-    while ($row = $result->fetch_assoc()):
+    while ($row = mysqli_fetch_assoc($result)) :
         ?>
         <tr>
             <td><?= $row['id'] ?></td>
