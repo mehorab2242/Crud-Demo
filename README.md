@@ -1,6 +1,5 @@
 ---
 
-```markdown
 # CRUD Demo - Notes App
 
 A simple **PHP CRUD application** for managing notes.  
