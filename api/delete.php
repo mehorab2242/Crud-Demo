@@ -1,7 +1,7 @@
 <?php
 include '../database/db.php';
 
-$id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+$id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
 if (!$id) {
     die("Invalid request: No note ID.");

@@ -58,8 +58,9 @@
                                             class="btn btn-sm btn-outline-danger"
                                             data-bs-toggle="modal"
                                             data-bs-target="#deleteModal"
-                                            data-id="<?= (int)$row['id'] ?>"
-                                    <i class="bi bi-trash"></i> Delete
+                                            data-id="<?= (int)$row['id'] ?>">
+                                        <i class="bi bi-trash"></i> Delete
+                                    </button>
                                 </td>
                             </tr>
                         <?php
@@ -94,7 +95,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                <a id="confirmDeleteBtn" href="api/delete.php" class="btn btn-danger">Delete</a>
+                <button type="submit" class="btn btn-danger">Delete</button>
             </div>
         </form>
     </div>
