@@ -1,16 +1,25 @@
-<?php include 'db.php'; ?>
+<?php include 'database/db.php'; ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Notes App</title>
+    <link rel="stylesheet" href="css/index.css">
+
 </head>
 <body>
-<h1>All Notes</h1>
-<a href="create.php">+ Add New Note</a>
-<br><br>
 
-<table border="1" cellpadding="8">
+<h1>All Notes</h1>
+
+<a href="pages/createPage.php" class="add-btn">+ Add New Note</a>
+
+<?php if (isset($_GET['success'])): ?>
+    <p style="background:#d4edda; padding:10px; border-left:5px solid #28a745;">
+        ✅ Note added successfully!
+    </p>
+<?php endif; ?>
+
+<table>
     <tr>
         <th>ID</th>
         <th>Title</th>
@@ -27,8 +36,8 @@
             <td><?= htmlspecialchars($row['title']) ?></td>
             <td><?= htmlspecialchars($row['description']) ?></td>
             <td>
-                <a href="edit.php?id=<?= $row['id'] ?>">Edit</a> |
-                <a href="delete.php?id=<?= $row['id'] ?>" onclick="return confirm('Delete this note?')">Delete</a>
+                <a href="pages/editPage.php?id=<?= $row['id'] ?>" class="action-btn edit-btn">Edit</a>
+                <a href="api/delete.php?id=<?= $row['id'] ?>" class="action-btn delete-btn" onclick="return confirm('Delete this note?')">Delete</a>
             </td>
         </tr>
     <?php endwhile; ?>
