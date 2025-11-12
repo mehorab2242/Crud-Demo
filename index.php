@@ -12,7 +12,7 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-white border-bottom">
+<nav class="navbar navbar-expand-lg bg-transparent border-bottom">
     <div class="container">
         <a class="navbar-brand fw-semibold" href="./">
             <i class="bi bi-journal-text me-1"></i> Notes App
@@ -25,14 +25,21 @@
     </div>
 </nav>
 
-<div class="container my-4">
-    <div class="card shadow-sm">
+<div class="container bg-transparent my-4">
+    <div class="card bg-transparent shadow-sm">
         <div class="card-body p-0">
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0">
-                    <thead class="table-light">
+                <table
+                        class="table table-hover align-middle mb-0"
+                        style="
+    --bs-table-bg: transparent;
+    --bs-table-striped-bg: transparent;
+    --bs-table-hover-bg: rgba(255,255,255,0.50); /* or 'transparent' if you want no hover */
+    --bs-table-border-color: rgba(255,255,255,1.35); /* optional: subtle borders on your bg */
+  "
+                >
+                    <thead>
                     <tr>
-                        <th style="width:80px;">ID</th>
                         <th style="width:260px;">Title</th>
                         <th>Description</th>
                         <th style="width:180px;" class="text-end">Actions</th>
@@ -45,13 +52,14 @@
                         while ($row = mysqli_fetch_assoc($result)):
                             ?>
                             <tr>
-                                <td class="fw-medium"><?= (int)$row['id'] ?></td>
                                 <td class="fw-semibold"><?= htmlspecialchars($row['title']) ?></td>
-                                <td class="text-secondary">
-                                    <?= nl2br(htmlspecialchars($row['description'])) ?>
+                                <td class="text-dark"
+                                ">
+                                <?= nl2br(htmlspecialchars($row['description'])) ?>
                                 </td>
                                 <td class="text-end">
-                                    <a href="pages/editPage.php?id=<?= (int)$row['id'] ?>" class="btn btn-sm btn-outline-primary me-2">
+                                    <a href="pages/editPage.php?id=<?= (int)$row['id'] ?>"
+                                       class="btn btn-sm btn-outline-primary me-2">
                                         <i class="bi bi-pencil-square"></i> Edit
                                     </a>
                                     <button
@@ -86,7 +94,8 @@
     <div class="modal-dialog modal-dialog-centered">
         <form class="modal-content" method="POST" action="../api/delete.php">
             <div class="modal-header">
-                <h5 class="modal-title"><i class="bi bi-exclamation-triangle text-danger me-2"></i> Confirm Deletion</h5>
+                <h5 class="modal-title"><i class="bi bi-exclamation-triangle text-danger me-2"></i> Confirm Deletion
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
