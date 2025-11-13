@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/create.css">
+    <link rel="stylesheet" href="<?= htmlspecialchars($appRoot) ?>css/create.css">
 </head>
 <body>
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-transparent border-bottom border-light shadow-sm">
     <div class="container">
-        <a class="navbar-brand fw-semibold text-dark" href="../index.php">
+        <a class="navbar-brand fw-semibold text-dark" href="<?= htmlspecialchars($appRoot) ?>">
             <i class="bi bi-journal-text me-2"></i> Notes App
         </a>
         <div class="ms-auto">
-            <a href="../index.php" class="btn btn-outline-secondary">
+            <a href="<?= htmlspecialchars($appRoot) ?>" class="btn btn-outline-secondary">
                 <i class="bi bi-arrow-left"></i> Back to Notes
             </a>
         </div>
@@ -35,22 +35,15 @@
         </div>
 
         <div class="card-body">
-            <?php
-            include '../database/db.php';
-            if (isset($_GET['id'])) {
-                $id = (int)$_GET['id'];
-                $result = $conn->query("SELECT * FROM notes WHERE id = $id");
-                $note = $result->fetch_assoc();
-                if (!$note) {
-                    echo '<div class="alert alert-danger bg-transparent border-danger text-danger">Note not found.</div>';
-                }
-            } else {
-                echo '<div class="alert alert-danger bg-transparent border-danger text-danger">Invalid request.</div>';
-            }
-            ?>
-
-            <?php if (!empty($note)) : ?>
-                <form method="POST" action="../api/edit.php">
+            <?php if (!empty($error)): ?>
+                <div class="alert alert-danger bg-transparent border-danger text-danger">
+                    <i class="bi bi-exclamation-triangle me-2"></i><?= htmlspecialchars($error) ?>
+                </div>
+                <a href="<?= htmlspecialchars($appRoot) ?>" class="btn btn-light">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Notes
+                </a>
+            <?php elseif (!empty($note)): ?>
+                <form method="POST" action="<?= htmlspecialchars($appRoot) ?>api/edit.php">
                     <input type="hidden" name="id" value="<?= (int)$note['id'] ?>">
 
                     <!-- Title -->
@@ -84,7 +77,7 @@
                         <button type="submit" class="btn btn-primary">
                             <i class="bi bi-check-circle me-1"></i> Update
                         </button>
-                        <a href="../index.php" class="btn btn-light">Cancel</a>
+                        <a href="<?= htmlspecialchars($appRoot) ?>" class="btn btn-light">Cancel</a>
                     </div>
                 </form>
             <?php endif; ?>
