@@ -97,6 +97,73 @@
 
             </div>
         </div>
+        
+        <?php if ($totalNotes > 0): ?>
+            <div class="card-footer bg-transparent border-top">
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div class="text-muted">
+                        Showing <?= count($notes) ?> of <?= $totalNotes ?> note<?= $totalNotes !== 1 ? 's' : '' ?>
+                        <?php if ($totalPages > 1): ?>
+                            <span class="ms-2">(Page <?= $currentPage ?> of <?= $totalPages ?>)</span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <?php if ($totalPages > 1): ?>
+                        <nav aria-label="Notes pagination">
+                            <ul class="pagination mb-0">
+                                <li class="page-item <?= $currentPage <= 1 ? 'disabled' : '' ?>">
+                                    <a class="page-link" href="<?= htmlspecialchars($appRoot) ?>index.php?page=<?= $currentPage - 1 ?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                
+                                <?php
+                                // Calculate page range to display
+                                $startPage = max(1, $currentPage - 2);
+                                $endPage = min($totalPages, $currentPage + 2);
+                                
+                                // Show first page if not in range
+                                if ($startPage > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= htmlspecialchars($appRoot) ?>index.php?page=1">1</a>
+                                    </li>
+                                    <?php if ($startPage > 2): ?>
+                                        <li class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                                
+                                <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
+                                    <li class="page-item <?= $i === $currentPage ? 'active' : '' ?>">
+                                        <a class="page-link" href="<?= htmlspecialchars($appRoot) ?>index.php?page=<?= $i ?>"><?= $i ?></a>
+                                    </li>
+                                <?php endfor; ?>
+                                
+                                <?php
+                                // Show last page if not in range
+                                if ($endPage < $totalPages): ?>
+                                    <?php if ($endPage < $totalPages - 1): ?>
+                                        <li class="page-item disabled">
+                                            <span class="page-link">...</span>
+                                        </li>
+                                    <?php endif; ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="<?= htmlspecialchars($appRoot) ?>index.php?page=<?= $totalPages ?>"><?= $totalPages ?></a>
+                                    </li>
+                                <?php endif; ?>
+                                
+                                <li class="page-item <?= $currentPage >= $totalPages ? 'disabled' : '' ?>">
+                                    <a class="page-link" href="<?= htmlspecialchars($appRoot) ?>index.php?page=<?= $currentPage + 1 ?>" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
